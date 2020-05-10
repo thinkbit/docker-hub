@@ -1,0 +1,38 @@
+# https://developer.android.com/studio/write/java8-support
+FROM openjdk:8-slim
+
+WORKDIR /usr/src/app
+
+RUN apt-get update --yes --quiet
+
+# https://developer.android.com/studio/command-line/variables
+ENV ANDROID_SDK_ROOT=/usr/src/app
+ENV PATH=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$PATH
+
+# https://about.gitlab.com/blog/2018/10/24/setting-up-gitlab-ci-for-android-projects/
+ENV ANDROID_BUILD_TOOLS_VERSION=29.0.3
+ENV ANDROID_COMPILE_SDK_VERSION=29
+
+# https://developer.android.com/studio/command-line#tools-sdk
+# https://developer.android.com/studio/index.html#command-tools
+RUN apt-get install wget unzip --yes --quiet
+RUN wget --quiet --output-document=Android.zip https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip
+RUN unzip -d ./cmdline-tools Android.zip
+RUN rm Android.zip
+
+RUN yes | sdkmanager --licenses
+
+RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+
+RUN sdkmanager "emulator"
+ENV PATH=$ANDROID_SDK_ROOT/emulator:$PATH
+
+RUN sdkmanager "patcher;v4"
+
+RUN sdkmanager "platform-tools"
+ENV PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+
+RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK_VERSION}"
+
+# Fixes "File /root/.android/repositories.cfg could not be loaded." in Gradle
+RUN touch /root/.android/repositories.cfg
