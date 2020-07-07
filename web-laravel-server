@@ -1,0 +1,39 @@
+# Values below are based on
+# Run `homestead box list`; Homestead Box version 9.5.1 and Laravel version 7
+# Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
+FROM php:7.3.17
+
+WORKDIR /usr/src/app
+
+RUN apt-get update --yes --quiet
+
+# https://laravel.com/docs#server-requirements
+
+RUN docker-php-ext-install bcmath
+
+RUN docker-php-ext-install ctype
+
+# Fileinfo PHP extension is preinstalled in PHP
+# JSON PHP Extension is preinstalled in PHP
+
+RUN apt-get install libonig-dev --yes --quiet # Required by mbstring
+RUN docker-php-ext-install mbstring
+
+# RUN docker-php-ext-install openssl # https://github.com/docker-library/php/issues/453
+
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo_mysql # We use MySQL
+
+RUN docker-php-ext-install tokenizer
+
+RUN apt-get install libxml2-dev --yes --quiet # Required by xml
+RUN docker-php-ext-install xml
+
+RUN apt-get install zlib1g-dev libpng-dev --yes --quiet # Required by GD
+RUN docker-php-ext-install gd # Required to use Illuminate\Http\Testing\FileFactory::image() when doing unit tests
+
+# Used for code coverage generation. Homestead version affects the installed xdebug version
+# https://laravel.com/docs/homestead#debugging-web-requests
+# Run `sudo phpenmod xdebug; php7.3 -v; sudo phpdismod xdebug;`
+RUN pecl install xdebug-2.9.3
+RUN docker-php-ext-enable xdebug

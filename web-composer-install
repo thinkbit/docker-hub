@@ -1,0 +1,22 @@
+# Values below are based on
+# Run `homestead box list`; Homestead Box version 9.5.1
+# Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
+FROM php:7.3.17
+
+WORKDIR /usr/src/app
+
+RUN apt-get update --yes --quiet
+
+# Reference: https://getcomposer.org/download/
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+# Run composer --version
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.7
+
+RUN php -r "unlink('composer-setup.php');"
+
+# Required when installing dependencies
+RUN apt-get install zip unzip --yes --quiet 
+
+# Fallback when downloading dependencies
+RUN apt-get install git --yes --quiet 
