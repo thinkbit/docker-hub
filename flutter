@@ -1,0 +1,16 @@
+# https://developer.android.com/studio/write/java8-support
+FROM thinkbit/android:ct6200805-bt29.0.3-cs29-v1
+
+WORKDIR /usr/src/app
+
+RUN apt-get update --yes --quiet
+
+# https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
+
+ENV PATH=/usr/src/app/flutter/bin/tools/bin:$PATH
+ENV FLUTTER_VERSION=v1.12.13+hotfix.8
+
+RUN apt-get install git curl unzip --yes --quiet
+RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
+
+RUN flutter precache
