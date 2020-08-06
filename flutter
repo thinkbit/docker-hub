@@ -13,4 +13,4 @@ ENV FLUTTER_VERSION=v1.12.13+hotfix.8
 RUN apt-get install git curl unzip --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
 
-RUN flutter precache
+RUN ./flutter/bin/flutter precache
