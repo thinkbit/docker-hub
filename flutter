@@ -1,4 +1,4 @@
-FROM thinkbit/android:ct6200805-bt29.0.3-cs29-v1
+FROM thinkbit/android:ct6200805-bt28.0.3-cs28-1
 
 WORKDIR /usr/src/app
 
