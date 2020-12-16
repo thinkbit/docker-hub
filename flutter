@@ -7,7 +7,7 @@ RUN apt-get update --yes --quiet
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
 ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=1.22.4
+ENV FLUTTER_VERSION=1.22.5
 
 RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
