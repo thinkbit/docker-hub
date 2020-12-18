@@ -2,7 +2,7 @@ FROM thinkbit/android:ct6200805-bt28.0.3-cs28-1
 
 WORKDIR /usr/src/app
 
-RUN apt-get update --yes --quiet
+RUN apt-get update --no-cache --yes --quiet
 
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
