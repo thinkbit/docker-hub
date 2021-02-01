@@ -1,4 +1,4 @@
-FROM thinkbit/android:ct6200805-bt28.0.3-cs28-1
+FROM thinkbit/android:ct6200805-bt30.0.3-cs30-1
 
 WORKDIR /usr/src/app
 
@@ -7,7 +7,7 @@ RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
 ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=1.22.4
+ENV FLUTTER_VERSION=1.22.6
 
 #RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
