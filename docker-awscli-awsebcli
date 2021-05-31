@@ -16,5 +16,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Expose volume for adding credentials and access local sources
-VOLUME ["~/.aws", "/src"]
+# VOLUME ["~/.aws", "/src"]
 WORKDIR /src
