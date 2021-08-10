@@ -2,7 +2,10 @@ FROM thinkbit/android:ct6200805-bt30.0.3-cs30-1
 
 WORKDIR /usr/src/app
 
-RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --quiet
+RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --quiet && apt-get install -y xdg-user-dirs
+
+# Added xdg-user for path_provider
+
 
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
