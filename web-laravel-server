@@ -29,7 +29,7 @@ RUN docker-php-ext-install tokenizer
 RUN apt-get install libxml2-dev --yes --quiet # Required by xml
 RUN docker-php-ext-install xml
 
-RUN apt-get install zlib1g-dev libpng-dev --yes --quiet # Required by GD
+RUN apt-get install zlib1g-dev libpng-dev libwebp-dev --yes --quiet # Required by GD
 RUN docker-php-ext-install gd # Required to use Illuminate\Http\Testing\FileFactory::image() when doing unit tests
 
 # Used for code coverage generation. Homestead version affects the installed xdebug version
