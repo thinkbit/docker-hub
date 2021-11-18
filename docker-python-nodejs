@@ -1,2 +1,0 @@
-# DESC: Docker file to run nodejs and python.
-#FROM python:slim

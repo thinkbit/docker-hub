@@ -1,0 +1,12 @@
+# DESC: Docker file to run nodejs
+FROM node:14.15.1
+
+WORKDIR /usr/src/app
+
+RUN npm install
+
+# Required when installing dependencies
+RUN apt-get install zip unzip --yes --quiet 
+
+# Fallback when downloading dependencies
+RUN apt-get install git --yes --quiet 
