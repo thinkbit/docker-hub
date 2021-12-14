@@ -1,7 +1,9 @@
 # Values below are based on
 # Run `homestead box list`; Homestead Box version 9.5.1 and Laravel version 7
 # Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
-FROM php:7.3.17
+#FROM php:7.3.17
+# Run php8.0 -v; https://laravel.com/docs/8.x/homestead#multiple-php-versions
+FROM php:8.0
 
 WORKDIR /usr/src/app
 
