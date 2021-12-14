@@ -13,7 +13,7 @@ RUN apt-get update --yes --quiet
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 
 # Run composer --version
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.7
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.10
 
 RUN php -r "unlink('composer-setup.php');"
 
