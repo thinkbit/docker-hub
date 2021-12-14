@@ -52,5 +52,8 @@ RUN docker-php-ext-install gd
 # Used for code coverage generation. Homestead version affects the installed xdebug version
 # https://laravel.com/docs/homestead#debugging-web-requests
 # Run `sudo phpenmod xdebug; php7.3 -v; sudo phpdismod xdebug;`
-RUN pecl install xdebug-2.9.3
+# v1
+# RUN pecl install xdebug-2.9.3
+# v2
+RUN pecl install xdebug-3.1
 RUN docker-php-ext-enable xdebug
