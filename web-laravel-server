@@ -55,5 +55,5 @@ RUN docker-php-ext-install gd
 # v1
 # RUN pecl install xdebug-2.9.3
 # v2
-RUN pecl install xdebug-3.1
+RUN pecl install xdebug-3.1.2
 RUN docker-php-ext-enable xdebug
