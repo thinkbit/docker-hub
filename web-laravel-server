@@ -11,6 +11,10 @@ RUN apt-get update --yes --quiet
 
 # https://laravel.com/docs#server-requirements
 
+RUN apt-get install webp --yes --quiet
+
+# Installing webp
+
 RUN docker-php-ext-install bcmath
 
 RUN docker-php-ext-install ctype
