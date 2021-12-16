@@ -5,22 +5,33 @@ FROM php:7.3.17
 
 WORKDIR /usr/src/app
 
-RUN apt-get update --yes --quiet
+RUN apt-get update && apt-get install -y \
+    libonig-dev \ 
+    libxml2-dev \
+    libjpeg62-turbo-dev \
+    libwebp-dev \
+    libpng-dev \
+    webp \
+    && rm -rf /var/lib/apt/lists/*
 
-# https://laravel.com/docs#server-requirements
+    # libonig - Required by mbstring
+    # libxml2 Required by xml
 
-RUN apt-get install webp --yes --quiet
+    # Rewrote installation of linux packages acc to https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run
 
-# Install webp package
+RUN ls -l
+
+    # Know our current directory
 
 RUN docker-php-ext-install bcmath
 
 RUN docker-php-ext-install ctype
 
+
 # Fileinfo PHP extension is preinstalled in PHP
 # JSON PHP Extension is preinstalled in PHP
 
-RUN apt-get install libonig-dev --yes --quiet # Required by mbstring
+# RUN apt-get install libonig-dev --yes --quiet # Required by mbstring
 RUN docker-php-ext-install mbstring
 
 # RUN docker-php-ext-install openssl # https://github.com/docker-library/php/issues/453
@@ -30,16 +41,16 @@ RUN docker-php-ext-install pdo_mysql # We use MySQL
 
 RUN docker-php-ext-install tokenizer
 
-RUN apt-get install libxml2-dev --yes --quiet # Required by xml
+# RUN apt-get install libxml2-dev --yes --quiet # Required by xml
 RUN docker-php-ext-install xml
 
 # RUN apt-get install zlib1g-dev libpng-dev libwebp-dev --yes --quiet
 
-RUN apt update && apt install -y --no-install-recommends \
-        libjpeg62-turbo-dev \
-        libwebp-dev \
-        libpng-dev && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt update && apt install -y --no-install-recommends \
+#         libjpeg62-turbo-dev \
+#         libwebp-dev \
+#         libpng-dev && \
+#     rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-webp-dir=/usr --with-jpeg-dir=/usr
 RUN docker-php-ext-install gd
