@@ -1,7 +1,9 @@
 # Values below are based on
 # Run `homestead box list`; Homestead Box version 9.5.1
 # Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
-FROM php:7.3.17
+# FROM php:7.3.17
+# Run php8.0 -v; https://laravel.com/docs/8.x/homestead#multiple-php-versions
+FROM php:8.0
 
 WORKDIR /usr/src/app
 
@@ -11,7 +13,7 @@ RUN apt-get update --yes --quiet
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 
 # Run composer --version
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.7
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.10
 
 RUN php -r "unlink('composer-setup.php');"
 

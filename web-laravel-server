@@ -1,7 +1,9 @@
 # Values below are based on
 # Run `homestead box list`; Homestead Box version 9.5.1 and Laravel version 7
 # Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
-FROM php:7.3.17
+#FROM php:7.3.17
+# Run php8.0 -v; https://laravel.com/docs/8.x/homestead#multiple-php-versions
+FROM php:8.0
 
 WORKDIR /usr/src/app
 
@@ -36,8 +38,12 @@ RUN apt update && apt install -y --no-install-recommends \
         libwebp-dev \
         libpng-dev && \
     rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-configure gd --with-png-dir=/usr --with-webp-dir=/usr --with-jpeg-dir=/usr
+# v1
+# RUN docker-php-ext-configure gd --with-png-dir=/usr --with-webp-dir=/usr --with-jpeg-dir=/usr
+# v2
+# RUN docker-php-ext-configure gd --with-png=/usr --with-webp=/usr --with-jpeg=/usr
+# v3
+RUN docker-php-ext-configure gd -with-webp=/usr --with-jpeg=/usr
 RUN docker-php-ext-install gd
     
 # RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp --with-zlib
@@ -46,5 +52,8 @@ RUN docker-php-ext-install gd
 # Used for code coverage generation. Homestead version affects the installed xdebug version
 # https://laravel.com/docs/homestead#debugging-web-requests
 # Run `sudo phpenmod xdebug; php7.3 -v; sudo phpdismod xdebug;`
-RUN pecl install xdebug-2.9.3
+# v1
+# RUN pecl install xdebug-2.9.3
+# v2
+RUN pecl install xdebug-3.1.2
 RUN docker-php-ext-enable xdebug
