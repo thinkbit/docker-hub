@@ -38,5 +38,5 @@ RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK_VERSION}"
 RUN touch /root/.android/repositories.cfg
 
 #Fixes for 31.0.0
-RUN ln $ANDROID_SDK_ROOT/build-tools/31.0.0/dx.bat $ANDROID_SDK_ROOT/build-tools/31.0.0/d8.bat
+RUN ln $ANDROID_SDK_ROOT/build-tools/31.0.0/dx $ANDROID_SDK_ROOT/build-tools/31.0.0/d8
 RUN ln $ANDROID_SDK_ROOT/build-tools/31.0.0/lib/dx.jar $ANDROID_SDK_ROOT/build-tools/31.0.0/lib/d8.jar
