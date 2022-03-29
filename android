@@ -1,5 +1,6 @@
 # https://developer.android.com/studio/write/java8-support
-FROM openjdk:8-slim
+#FROM openjdk:8-slim
+FROM openjdk:11
 
 WORKDIR /usr/src/app
 
