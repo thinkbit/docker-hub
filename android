@@ -20,7 +20,7 @@ ENV ANDROID_COMPILE_SDK_VERSION=32
 # https://developer.android.com/studio/command-line#tools-sdk
 # https://developer.android.com/studio/index.html#command-tools
 RUN apt-get install wget unzip --yes --quiet
-RUN wget --quiet --output-document=Android.zip https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip
+RUN wget --quiet --output-document=Android.zip https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip
 RUN unzip -d ./cmdline-tools Android.zip
 RUN rm Android.zip
 
