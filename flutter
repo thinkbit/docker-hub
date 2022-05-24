@@ -6,10 +6,9 @@ RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --
 
 # Added xdg-user for path_provider
 
-RUN apt-get install -y locales
-RUN locale-gen en_US.UTF-8
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
-
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
