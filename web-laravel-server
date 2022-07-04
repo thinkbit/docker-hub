@@ -30,7 +30,8 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install pdo_mysql # We use MySQL
 
-RUN docker-php-ext-install tokenizer
+# tokenizer package already included in the php8.1 image
+# RUN docker-php-ext-install tokenizer
 
 RUN apt-get install libxml2-dev --yes --quiet # Required by xml
 RUN docker-php-ext-install xml
