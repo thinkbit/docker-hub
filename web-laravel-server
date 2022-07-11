@@ -43,9 +43,6 @@ RUN apt update && apt install -y --no-install-recommends \
         libwebp-dev \
         libpng-dev && \
     rm -rf /var/lib/apt/lists/*
-RUN apt update && apt-get install -y --no-install-recommends \
-        zip \
-        unzip
 # v1
 # RUN docker-php-ext-configure gd --with-png-dir=/usr --with-webp-dir=/usr --with-jpeg-dir=/usr
 # v2
