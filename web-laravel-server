@@ -29,9 +29,14 @@ RUN docker-php-ext-install tokenizer
 RUN apt-get install libxml2-dev --yes --quiet # Required by xml
 RUN docker-php-ext-install xml
 
-RUN apt-get install zlib1g-dev libpng-dev libwebp-dev --yes --quiet # Required by GD
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp --with-zlib-dir
-RUN docker-php-ext-install gd # Required to use Illuminate\Http\Testing\FileFactory::image() when doing unit tests
+RUN apt update && apt install -y --no-install-recommends \
+        libjpeg62-turbo-dev \
+        libwebp-dev \
+        libpng-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-configure gd --with-webp --with-jpeg
+RUN docker-php-ext-install gd
 
 # Used for code coverage generation. Homestead version affects the installed xdebug version
 # https://laravel.com/docs/homestead#debugging-web-requests
