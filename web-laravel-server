@@ -3,7 +3,7 @@
 # Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
 #FROM php:7.3.17
 # Run php8.0 -v; https://laravel.com/docs/8.x/homestead#multiple-php-versions
-FROM php:8.1
+FROM php:8.0
 
 WORKDIR /usr/src/app
 
@@ -30,8 +30,7 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install pdo_mysql # We use MySQL
 
-# tokenizer package already included in the php8.1 image
-# RUN docker-php-ext-install tokenizer
+RUN docker-php-ext-install tokenizer
 
 RUN apt-get install libxml2-dev --yes --quiet # Required by xml
 RUN docker-php-ext-install xml
