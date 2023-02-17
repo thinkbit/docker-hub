@@ -63,4 +63,7 @@ RUN docker-php-ext-install gd
 RUN pecl install xdebug-3.1.2
 RUN docker-php-ext-enable xdebug
 # Install ZipArchive Class
-RUN docker-php-ext-install zip
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
