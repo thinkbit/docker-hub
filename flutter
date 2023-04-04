@@ -20,7 +20,7 @@ RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter
 
 
 # SETUP FIREBASE & FLUTTERFIRE
-curl -sL https://firebase.tools | bash
-dart pub global activate flutterfire_cli
+RUN curl -sL https://firebase.tools | bash
+RUN dart pub global activate flutterfire_cli
 
 RUN flutter precache
