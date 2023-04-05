@@ -22,12 +22,11 @@ RUN flutter precache
 
 WORKDIR /usr/src/app
 
-# SETUP FIREBASE & FLUTTERFIRE
-#RUN apt-get update && apt-get install -y curl
-#RUN curl -sL https://firebase.tools | bash
+# SETUP FIREBASE & FLUTTERFIRE CLIs
 RUN apt-get update && \
     apt-get install -y npm
 RUN npm install -g firebase-tools
 ENV PATH="/usr/local/bin:${PATH}"
+
 RUN dart pub global activate flutterfire_cli
-RUN ls /usr/local/bin
+ENV PATH="$PATH:/root/.pub-cache/bin"
