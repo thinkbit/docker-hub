@@ -21,11 +21,6 @@ RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter
 RUN flutter precache
 
 # SETUP FIREBASE & FLUTTERFIRE CLIs
-#RUN apt-get update && \
-    apt-get install -y npm
-#RUN npm install -g firebase-tools
-#ENV PATH="/usr/local/bin:${PATH}"
-
 RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
 
 RUN dart pub global activate flutterfire_cli
