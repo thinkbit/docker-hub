@@ -8,33 +8,40 @@ RUN apt-get update --yes --quiet
 
 # https://about.gitlab.com/blog/2018/10/24/setting-up-gitlab-ci-for-android-projects/
 
-ENV ANDROID_BUILD_TOOLS_VERSION=33.0.0
+ENV ANDROID_BUILD_TOOLS_VERSION=33.0.1
 ENV ANDROID_COMPILE_SDK_VERSION=33
 
 # https://developer.android.com/studio/command-line#tools-sdk
 # https://developer.android.com/studio/index.html#command-tools
 RUN apt-get install wget unzip --yes --quiet
-RUN wget --quiet --output-document=Android.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-RUN unzip -d ./cmdline-tools Android.zip
-RUN rm Android.zip
+
 
 # https://developer.android.com/studio/command-line/variables
-ENV ANDROID_SDK_ROOT=/usr/src/app
-ENV PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+ENV ANDROID_SDK_TOOLS_VERSION=9477386
+ENV ANDROID_SDK_TOOLS_CHECKSUM=bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
+ENV ANDROID_HOME=/opt/android-sdk-linux
+ENV ANDROID_SDK_ROOT=/opt/android-sdk-linux
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/android-sdk-linux/cmdline-tools:/opt/android-sdk-linux/cmdline-tools/bin:/opt/android-sdk-linux/platform-tools
 
-RUN yes | sdkmanager --licenses
 
-RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+RUN wget --quiet --output-document=Android.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS_VERSION}_latest.zip
+# RUN unzip -d ./cmdline-tools Android.zip
+RUN unzip -qq Android.zip -d $ANDROID_HOME
+RUN rm Android.zip
 
-RUN sdkmanager "emulator"
-ENV PATH=$ANDROID_SDK_ROOT/emulator:$PATH
+RUN yes | sdkmanager --licenses --sdk_root=${ANDROID_SDK_ROOT}
 
-RUN sdkmanager "patcher;v4"
+RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" --sdk_root=${ANDROID_SDK_ROOT}
 
-RUN sdkmanager "platform-tools"
-ENV PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
 
-RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK_VERSION}"
+RUN sdkmanager "patcher;v4" --sdk_root=${ANDROID_SDK_ROOT}
 
-# Fixes "File /root/.android/repositories.cfg could not be loaded." in Gradle
-RUN touch /root/.android/repositories.cfg
+RUN sdkmanager "platform-tools" --sdk_root=${ANDROID_SDK_ROOT}
+
+
+RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK_VERSION}" --sdk_root=${ANDROID_SDK_ROOT}
+
+
+
+# # Fixes "File /root/.android/repositories.cfg could not be loaded." in Gradle
+# RUN touch /root/.android/repositories.cfg
