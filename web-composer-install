@@ -18,7 +18,12 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer --ve
 RUN php -r "unlink('composer-setup.php');"
 
 # Required when installing dependencies
-RUN apt-get install zip unzip --yes --quiet 
+# RUN apt-get install zip unzip --yes --quiet 
+RUN apt update && apt install -y --no-install-recommends \
+        libzip-dev \
+        zip \
+        unzip \
+  && docker-php-ext-install zip
 
 # Fallback when downloading dependencies
 RUN apt-get install git --yes --quiet 

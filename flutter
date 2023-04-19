@@ -1,5 +1,4 @@
 FROM thinkbit/android:ct6200805-bt32.0.0-cs32-1
-#FROM thinkbit/android:ct6200805-bt31.0.0-cs31-jdk11-1
 
 WORKDIR /usr/src/app
 
@@ -14,9 +13,15 @@ ENV LANG en_US.UTF-8
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
 ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=3.3.3
+ENV FLUTTER_VERSION=3.7.6
 
 #RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
 
 RUN flutter precache
+
+# SETUP FIREBASE & FLUTTERFIRE CLIs
+RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
+
+RUN dart pub global activate flutterfire_cli
+ENV PATH="$PATH:/root/.pub-cache/bin"
