@@ -17,11 +17,21 @@ ENV FLUTTER_VERSION=3.7.12
 
 RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
-
+RUN which sdkmanager
+RUN echo $JAVA_HOME
 RUN flutter precache
+RUN flutter doctor -v
+RUN sdkmanager --install "cmdline-tools;latest"
+RUN flutter doctor --android-licenses
+RUN flutter doctor -v
+
 
 # SETUP FIREBASE & FLUTTERFIRE CLIs
 RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
 
 RUN dart pub global activate flutterfire_cli
 ENV PATH="$PATH:/root/.pub-cache/bin"
+
+
+
+
