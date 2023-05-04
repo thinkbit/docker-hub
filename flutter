@@ -1,5 +1,4 @@
-FROM mobiledevops/android-sdk-image:33.0.2
-#FROM thinkbit/android:ct6200805-bt32.0.0-cs32-1
+FROM thinkbit/android:ct9477386-bt33.0.2-cs33-1
 
 #WORKDIR /usr/src/app
 
