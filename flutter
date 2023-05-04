@@ -1,19 +1,20 @@
-FROM thinkbit/android:ct6200805-bt32.0.0-cs32-1
+FROM mobiledevops/android-sdk-image:33.0.2
+#FROM thinkbit/android:ct6200805-bt32.0.0-cs32-1
 
-WORKDIR /usr/src/app
+#WORKDIR /usr/src/app
 
-RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --quiet && apt-get install -y xdg-user-dirs
+#RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --quiet && apt-get install -y xdg-user-dirs
 
 # Added xdg-user for path_provider
 
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.UTF-8
+#RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+#    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+#ENV LANG en_US.UTF-8
 
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
 ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=3.7.6
+ENV FLUTTER_VERSION=3.7.12
 
 #RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
