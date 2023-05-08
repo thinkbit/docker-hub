@@ -3,7 +3,7 @@
 # Run php7.3 -v; https://laravel.com/docs/7.x/homestead#multiple-php-versions
 # FROM php:7.3.17
 # Run php8.0 -v; https://laravel.com/docs/8.x/homestead#multiple-php-versions
-FROM php:8.1
+FROM php:5.6
 
 WORKDIR /usr/src/app
 
@@ -23,7 +23,10 @@ RUN apt update && apt install -y --no-install-recommends \
         libzip-dev \
         zip \
         unzip \
+        libmcrypt-dev \
   && docker-php-ext-install zip
+  && docker-php-ext-install mcrypt
+  && docker-php-ext-install pdo_mysql
 
 # Fallback when downloading dependencies
 RUN apt-get install git --yes --quiet 
