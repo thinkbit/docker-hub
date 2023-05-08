@@ -25,8 +25,8 @@ RUN apt update && apt install -y --no-install-recommends \
         unzip \
         libmcrypt-dev \
   && docker-php-ext-install zip
-  && docker-php-ext-install mcrypt
-  && docker-php-ext-install pdo_mysql
 
+RUN docker-php-ext-install mcrypt
+RUN docker-php-ext-install pdo_mysql
 # Fallback when downloading dependencies
 RUN apt-get install git --yes --quiet 
