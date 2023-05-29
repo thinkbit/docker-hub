@@ -13,7 +13,7 @@ ENV LANG en_US.UTF-8
 # https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
 
 ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=3.7.12
+ENV FLUTTER_VERSION=3.10.2
 
 RUN apt-get install git curl unzip lcov --yes --quiet
 RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
