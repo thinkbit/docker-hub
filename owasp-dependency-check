@@ -1,0 +1,2 @@
+FROM nbaars/owasp-dependency-check-as-one:latest
+USER root
