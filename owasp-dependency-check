@@ -1,2 +1,3 @@
 FROM nbaars/owasp-dependency-check-as-one:latest
+RUN dependency-check --data /data --updateonly --enableExperimental --disablePyDist --disablePyPkg --disableMSBuild --disableNodeJS --disableYarnAudit --disableNodeAudit --disableAssembly --disableRetireJS --disableCocoapodsAnalyzer --disableBundleAudit --disableRubygems --failOnCVSS 8
 USER root
