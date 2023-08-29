@@ -1,30 +1,17 @@
-FROM thinkbit/android:ct9477386-bt33.0.2-cs33-1
+FROM mobiledevops/android-sdk-image:33.0.2
 
-WORKDIR /usr/src/app
+ENV FLUTTER_VERSION="3.13.1"
+ENV FLUTTER_HOME "/home/mobiledevops/.flutter-sdk"
+ENV PATH $PATH:$FLUTTER_HOME/bin
 
-RUN apt-get update --yes --quiet && apt-get install git curl unzip lcov --yes --quiet && apt-get install -y xdg-user-dirs
+# Download and extract Flutter SDK
+RUN mkdir $FLUTTER_HOME \
+    && cd $FLUTTER_HOME \
+    && curl --fail --remote-time --silent --location -O https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz \
+    && tar xf flutter_linux_${FLUTTER_VERSION}-stable.tar.xz --strip-components=1 \
+    && rm flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
 
-# Added xdg-user for path_provider
-
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.UTF-8
-
-# https://flutter.dev/docs/get-started/install/linux#install-flutter-manually
-
-ENV PATH=/usr/src/app/flutter/bin:$PATH
-ENV FLUTTER_VERSION=3.10.2
-
-RUN apt-get install git curl unzip lcov --yes --quiet
-RUN git clone -b ${FLUTTER_VERSION} --depth 1 https://github.com/flutter/flutter.git flutter
-RUN which sdkmanager
-RUN echo $JAVA_HOME
 RUN flutter precache
-RUN flutter doctor -v
-RUN sdkmanager --install "cmdline-tools;latest"
-RUN flutter doctor --android-licenses
-RUN flutter doctor -v
-
 
 # SETUP FIREBASE & FLUTTERFIRE CLIs
 RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
