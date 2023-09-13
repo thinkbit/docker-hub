@@ -1,4 +1,7 @@
 FROM mobiledevops/android-sdk-image:33.0.2
+USER root
+
+RUN apt-get update --yes && apt-get install lcov --yes --quiet && apt-get install -y xdg-user-dirs
 
 ENV FLUTTER_VERSION="3.13.1"
 ENV FLUTTER_HOME "/home/mobiledevops/.flutter-sdk"
@@ -12,7 +15,7 @@ RUN mkdir $FLUTTER_HOME \
     && rm flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
 
 RUN flutter precache
-
-
-
-
+# SETUP FIREBASE & FLUTTERFIRE CLIs
+RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
+RUN dart pub global activate flutterfire_cli
+USER mobiledevops
