@@ -19,7 +19,7 @@ RUN mkdir $FLUTTER_HOME \
 RUN flutter precache
 # SETUP FIREBASE & FLUTTERFIRE CLIs
 USER root
+RUN git config --global --add safe.directory $FLUTTER_HOME
 RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
 RUN dart pub global activate flutterfire_cli
-RUN git config --global --add safe.directory $FLUTTER_HOME
 USER mobiledevops
