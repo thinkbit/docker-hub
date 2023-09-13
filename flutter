@@ -3,6 +3,8 @@ USER root
 
 RUN apt-get update --yes && apt-get install lcov --yes --quiet && apt-get install -y xdg-user-dirs
 
+USER mobiledevops
+
 ENV FLUTTER_VERSION="3.13.1"
 ENV FLUTTER_HOME "/home/mobiledevops/.flutter-sdk"
 ENV PATH $PATH:$FLUTTER_HOME/bin
@@ -16,6 +18,8 @@ RUN mkdir $FLUTTER_HOME \
 
 RUN flutter precache
 # SETUP FIREBASE & FLUTTERFIRE CLIs
+USER root
 RUN curl -sL https://firebase.tools | sed 's/sudo //g' | bash
 RUN dart pub global activate flutterfire_cli
+RUN git config --global --add safe.directory $FLUTTER_HOME
 USER mobiledevops
