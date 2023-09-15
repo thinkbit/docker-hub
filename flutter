@@ -18,6 +18,11 @@ RUN mkdir $FLUTTER_HOME \
     && rm flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
 
 RUN flutter precache
+
+# SETUP VeryGoodCLI
+# so we can use an optimize version of 'flutter test', very_good test for a faster result on test coverage
+RUN dart pub global activate very_good_cli
+
 # SETUP FIREBASE & FLUTTERFIRE CLIs
 USER root
 RUN git config --global --add safe.directory $FLUTTER_HOME
