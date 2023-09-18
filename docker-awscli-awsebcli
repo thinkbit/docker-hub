@@ -12,7 +12,7 @@ RUN pip install --upgrade \
     echo "source /usr/local/bin/eb_completion.bash" >> ~/.bashrc
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		git zip \
+		git zip unzip jq \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Expose volume for adding credentials and access local sources
