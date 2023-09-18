@@ -1,20 +1,4 @@
 # DESC: Docker file to run AWS CLI and EB CLI tools.
-FROM python:slim
-
-ENV PAGER="more"
-
-RUN pip install --upgrade \
-    pip \
-    awsebcli \
-    awscli &&\
-    mkdir ~/.aws &&\
-    echo "complete -C '/usr/local/bin/aws_completer' aws" >> ~/.bashrc && \
-    echo "source /usr/local/bin/eb_completion.bash" >> ~/.bashrc
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		git zip unzip jq \
-	&& rm -rf /var/lib/apt/lists/*
-
-# Expose volume for adding credentials and access local sources
-# VOLUME ["~/.aws", "/src"]
-WORKDIR /src
+FROM registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+RUN apt-get update -y && apt-get install -y python3-pip
+RUN pip install awsebcli --upgrade --user
